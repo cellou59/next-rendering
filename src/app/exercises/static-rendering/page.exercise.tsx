@@ -1,16 +1,12 @@
 import RenderTime from '@/components/render-time'
 
-// 🐶 Importe la fonction `getPosts` qui permet d'accéder à notre base de donées
-// 🤖 import {getPosts} from '@/db/sgbd'
+import {getPosts} from '@/db/sgbd'
 import {Post} from '@/lib/type'
+export const revalidate = 10
 
-// 🐶 Transforme ce composant en asynchrone pour pouvoir faire l'appel en BDD.
-const Page = () => {
-  // ⛏️ Remplace les posts statiques par les posts de la base de données, utilise
-  // 🤖 getPosts()
-  const posts: Post[] = [{title: 'Un post coder dans le RSC'}]
+const Page = async () => {
+  const posts: Post[] = await getPosts()
 
-  // 🐶 Teste le comportement en mode DEV et PRODUCTION
   return (
     <div className="mx-auto max-w-4xl p-6 text-lg">
       <h1 className="mb-4 text-center text-3xl font-bold"> Fetch Posts</h1>
