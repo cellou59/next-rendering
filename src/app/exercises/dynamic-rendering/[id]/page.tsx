@@ -1,5 +1,4 @@
 export {default} from './page.exercise'
-// eslint-disable-next-line import/export
 export * from './page.exercise'
 
 //export {default} from './page.final'
