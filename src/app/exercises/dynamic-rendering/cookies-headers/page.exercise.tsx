@@ -1,20 +1,25 @@
 import RenderTime from '@/components/render-time'
 import {getPosts} from '@/db/sgbd'
 import {Post} from '@/lib/type'
-import {cookies} from 'next/headers'
+//import {cookies} from 'next/headers'
+import {headers} from 'next/headers'
 
 const Page = async () => {
   const posts = await getPosts()
-
+  let isAuth = false
   // https://nextjs.org/docs/app/api-reference/functions/cookies
-  // 🐶 Recupère les cookies
-  const cookieStore = await cookies()
-  const userid = cookieStore.get('userid')
+  // RSC static to dynamic du to the use of cookies()
+  //const cookieStore = await cookies()
+  // isAuth = !!cookieStore.get('userid')
+  // RSC static to dynamic du to the use of headers
+  const headersList = await headers()
+  const userAgent = headersList.get('User-Agent')
+  isAuth = !!userAgent?.includes('Chrome/134.0.0.0')
   return (
     <div className="mx-auto max-w-4xl p-6 text-lg">
       <h1 className="mb-4 text-center text-3xl font-bold">Fetch Posts</h1>
       <ul className="list-disc p-4 pl-4">
-        {userid
+        {isAuth
           ? posts?.map((post: Post) => <li key={post.title}>{post.title}</li>)
           : ''}
       </ul>
