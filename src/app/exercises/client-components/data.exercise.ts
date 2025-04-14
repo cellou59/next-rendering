@@ -1,3 +1,4 @@
+import 'server-only'
 // 🐶 Fais en sorte que ce code ne puisse pas être exposé au client
 export async function getData() {
   const secretKey = '#######_this_is_a_secret_key_#######'
